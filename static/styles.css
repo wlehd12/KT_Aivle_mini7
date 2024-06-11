@@ -1,0 +1,53 @@
+/* styles.css */
+
+/* Global Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+}
+
+/* Custom Header */
+.custom-header {
+    background-color: #4d85c1; /* 파란색 배경 */
+    color: white; /* 흰색 글자 */
+    padding: 2rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Button Styles */
+.btn-primary {
+    font-size: 1.5rem; 
+    padding: 0.75rem 1.25rem;
+    background-color: #007bff; /* 파란색 배경 */
+    color: white; /* 흰색 글자 */
+    border-color: #007bff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+}
+
+/* Link Customization */
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+a:hover {
+    color: #0056b3;
+}
+
+/* Button Customization */
+.btn-light {
+    background-color: white;
+    border-color: white;
+    color: #007bff;
+}
+
+.btn-light:hover {
+    background-color: #e2e6ea;
+    border-color: #dae0e5;
+    color: #0056b3;
+}

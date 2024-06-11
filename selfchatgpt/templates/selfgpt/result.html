@@ -1,0 +1,58 @@
+<!doctype html>
+{% load static %}
+<html>
+    <head>        
+        <title>ChatGPT Self Chat</title>
+        <meta charset="utf-8">
+        {% block extrahead %}
+        <link rel="stylesheet" href="{% static 'gtp/style.css' %}">
+        <link rel="stylesheet" href="{% static 'css/chat.css' %}">
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+        {% endblock %}
+    </head>
+    <body class="bg-light-yellow">
+        <div class="container mt-5">
+            <div class="card shadow">
+                <div class="card-header text-center bg-primary text-white">
+                    <h2>ChatGPT Chat</h2>
+                </div>
+                <div class="card-body chat-box" id="chat-box">
+                    <!-- 초기 메시지 -->
+                    <div class="chat-message bot-message bg-light text-dark rounded p-3 mb-3">
+                        안녕하세요! 저는 여기서 귀하를 도와드리는 가이드입니다. 궁금한 것이 있으면 언제든지 물어보세요!
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <form action="chat" method="post" enctype="application/x-www-form-urlencoded" id="chat-form" class="d-flex justify-content-center">
+                        {% csrf_token %}
+                        <div class="input-group" style="max-width: 600px; width: 100%;">
+                            <textarea id="question" name="question" class="form-control" placeholder="Type your message..."></textarea>
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-primary">Send</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- Bootstrap JS and dependencies -->
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <!-- Chat script -->
+        <script>
+            document.getElementById('chat-form').addEventListener('submit', function(event) {
+                var input = document.getElementById('question');
+                var message = input.value;
+                if (message.trim() !== '') {
+                    var chatBox = document.getElementById('chat-box');
+                    var userMessage = document.createElement('div');
+                    userMessage.className = 'chat-message user-message bg-primary text-white rounded p-3 mb-3';
+                    userMessage.textContent = message;
+                    chatBox.appendChild(userMessage);
+                    input.value = '';
+                }
+            });
+        </script>
+    </body>
+</html>
