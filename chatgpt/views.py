@@ -12,6 +12,7 @@ from langchain.vectorstores import Chroma
 from langchain.chains import RetrievalQA, ConversationalRetrievalChain
 from langchain.memory import ConversationBufferMemory , ChatMessageHistory 
 from langchain.schema import Document
+from .models import ChatHistory
 
 import pandas as pd
 import json
@@ -44,6 +45,9 @@ def chat(request):
         'question': query,
         'result': result["result"]
     }
+     # 질문과 응답을 ChatHistory 모델에 저장
+    ChatHistory.objects.create(question=query, answer=result["result"])
+
 
     # 응답을 보여주기 위한 html 선택 (위에서 처리한 context를 함께 전달)
     return render(request, 'gpt/result.html', context) 
