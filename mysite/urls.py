@@ -25,6 +25,7 @@ urlpatterns = [
     path('',index),
     path('chatgpt/',include('chatgpt.urls')),
     path('admin/', admin.site.urls),
+    path('selfchatgpt/',include('selfchatgpt.urls')),
 ]
 
 from django.conf import settings
