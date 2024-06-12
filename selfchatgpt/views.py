@@ -34,22 +34,12 @@ def getQAdb():
 database=getQAdb()
 
 def index(request):
-    if 'chatlog' in request.session:
-        del request.session['chatlog']
     return render(request, 'selfgpt/index.html')
 
 
 @csrf_exempt
 def chat(request):
     if request.method == "POST":
-        if 'chatlog' not in request.session:
-            request.session['chatlog'] = []
-            memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
-            chatlog = []
-        else:
-            chatlog = request.session['chatlog']
-            memory = memory_save(chatlog)
-
         query = request.POST.get('question')
         # 맥락 저장을 위한 conversation_id
         conversation_id = request.POST.get('conversation_id', None)
