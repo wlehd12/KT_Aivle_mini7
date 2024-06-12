@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'chatgpt',
     'selfchatgpt',
+    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -128,4 +129,5 @@ STATICFILES_DIRS = [ BASE_DIR / 'static', ]
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 
-
+LOGIN_REDIRECT_URL = '/selfchatgpt/'
+LOGOUT_REDIRECT_URL = '/selfchatgpt/'
