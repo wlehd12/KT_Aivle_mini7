@@ -7,3 +7,13 @@ class ChatHistory(models.Model):
 
     def __str__(self):
         return f"Q: {self.question} | A: {self.answer}"
+    
+
+class ChatgptHelpaivleqa(models.Model):
+    id = models.CharField(max_length=100,primary_key=True)
+    pclass = models.TextField()
+    qa = models.TextField()
+
+    class Meta:
+        managed = False
+        db_table = 'chatgpt_helpaivleQA'

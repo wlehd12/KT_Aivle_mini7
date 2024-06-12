@@ -94,15 +94,14 @@ class ChatgptChathistory(models.Model):
         managed = False
         db_table = 'chatgpt_chathistory'
 
-
 class ChatgptHelpaivleqa(models.Model):
+    id = models.CharField(max_length=100,primary_key=True)
     pclass = models.TextField()
     qa = models.TextField()
 
     class Meta:
         managed = False
         db_table = 'chatgpt_helpaivleQA'
-
 
 class DjangoAdminLog(models.Model):
     object_id = models.TextField(blank=True, null=True)
