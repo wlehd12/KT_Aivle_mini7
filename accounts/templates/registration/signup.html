@@ -1,13 +1,21 @@
-{% block title %}  
-    회원가입
-{% endblock %}
-{% block content %}
-    <h1> 회원 가입 </h1>
+{% load static %}
+<!doctype html>
+<html>
+<head>
+    <title>{% block title %}회원가입{% endblock %}</title>
+    <meta charset="utf-8">    
+    <link rel="stylesheet" href="{% static 'accounts/signup.css' %}">
+</head>
+<body>
+    {% block content %}
+    {% comment %} <h1> 회원 가입 </h1> {% endcomment %}
     <form action="" method="post">
         {% csrf_token %}
         <table>
             {{ form.as_table }}
         </table>
-        <input type="submit" />
+        <input type="submit" value="회원가입" />
     </form>
-{% endblock %}
+    {% endblock %}
+</body>
+</html>

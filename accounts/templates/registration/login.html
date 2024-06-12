@@ -1,10 +1,20 @@
-{% block content %}
-<form action="" method="post">
-    {% csrf_token %}
-    <table>
-        {{ form.as_table}}
-    </table>
-    <input type="submit" />
-</form>
-
-{% endblock %}
+{% load static %}
+<!doctype html>
+<html>
+<head>
+    <title>로그인</title>
+    <meta charset="utf-8">    
+    <link rel="stylesheet" href="{% static 'accounts/login.css' %}">
+</head>
+<body>
+    {% block content %}
+    <form action="" method="post">
+        {% csrf_token %}
+        <table>
+            {{ form.as_table}}
+        </table>
+        <input type="submit" value="로그인" />
+    </form>
+    {% endblock %}
+</body>
+</html>
