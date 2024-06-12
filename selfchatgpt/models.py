@@ -96,6 +96,7 @@ class ChatgptChathistory(models.Model):
 
 
 class ChatgptHelpaivleqa(models.Model):
+    id = models.CharField(max_length=100,primary_key=True)
     pclass = models.TextField()
     qa = models.TextField()
 
