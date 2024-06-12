@@ -50,6 +50,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 # ChatMessage 모델 가져오는 코드 추가
 from .models import ChatMessage
+from .models import ChatHistory
 
 from langchain.chat_models import ChatOpenAI
 from langchain.embeddings import OpenAIEmbeddings
@@ -77,7 +78,7 @@ def chat(request):
         result = qa(query)
 
         chat_message = ChatMessage.objects.create(user_message=query, bot_response=result["result"])
-
+        ChatHistory.objects.create(question=query, answer=result["result"])
         return JsonResponse({
             'result': result["result"],
             'timestamp': chat_message.timestamp.strftime('%Y-%m-%d %H:%M:%S')
@@ -96,3 +97,4 @@ def clear_history(request):
         return JsonResponse({'status': 'success'})
     else:
         return JsonResponse({'status': 'fail'}, status=400)
+
