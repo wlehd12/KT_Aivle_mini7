@@ -11,7 +11,6 @@ from langchain_community.chat_models import ChatOpenAI
 from langchain_community.embeddings import OpenAIEmbeddings
 from langchain_community.vectorstores import Chroma
 from langchain.chains import RetrievalQA
-<<<<<<< HEAD
 from langchain.schema import Document
 
 import uuid
@@ -19,13 +18,11 @@ import uuid
 
 #embeddings = OpenAIEmbeddings(model="text-embedding-ada-002")
 #database = Chroma(persist_directory="./database", embedding_function=embeddings)
-=======
 from langchain.chains import RetrievalQA, ConversationalRetrievalChain
 from langchain.memory import ConversationBufferMemory
 
 from .function import *
 import json
->>>>>>> session_test
 
 # DB remke
 def getQAdb():
@@ -59,7 +56,6 @@ def chat(request):
             memory = memory_save(chatlog)
 
         query = request.POST.get('question')
-        user = request.user
         # 맥락 저장을 위한 conversation_id
         conversation_id = request.POST.get('conversation_id', None)
         
@@ -89,7 +85,7 @@ def chat(request):
         request.session['chatlog'] = chatlog
         
         chat_message = ChatMessage.objects.create(user_message=query, bot_response=result["answer"])
-        ChatHistory.objects.create(user=user, question=query, answer=result["answer"])
+        ChatHistory.objects.create(question=query, answer=result["answer"])
         return JsonResponse({
             'result': result["answer"],
             'timestamp': chat_message.timestamp.strftime('%Y-%m-%d %H:%M:%S')
