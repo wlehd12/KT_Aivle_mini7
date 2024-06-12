@@ -1,0 +1,16 @@
+{% block content %}
+    <h1>Aivle School FAQ 모음</h1>
+
+    <form action='' method='get'>
+        {% csrf_token %}
+        검색어:<input type="text" name="keyword" value="{{q|default:''}}" >
+                <input type='submit' value='검색'>
+    </form>
+
+
+    {% for qas in QAlist %}
+        {{qas.qa}} <br><br>
+    {% endfor %}
+{% endblock content %}
+
+
