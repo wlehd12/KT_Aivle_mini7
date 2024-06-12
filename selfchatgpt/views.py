@@ -48,18 +48,18 @@ from django.http import HttpResponse, JsonResponse
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 
-# ChatMessage 모델 가져오는 코드 추가
 from .models import ChatMessage
 from .models import ChatHistory
-
-from langchain.chat_models import ChatOpenAI
-from langchain.embeddings import OpenAIEmbeddings
-from langchain.vectorstores import Chroma
-from langchain.chains import RetrievalQA
-
-
-from langchain.schema import Document
 from .models import ChatgptHelpaivleqa
+
+from langchain_community.chat_models import ChatOpenAI
+from langchain_community.embeddings import OpenAIEmbeddings
+from langchain_community.vectorstores import Chroma
+from langchain.chains import RetrievalQA
+from langchain.schema import Document
+
+import uuid
+
 
 #embeddings = OpenAIEmbeddings(model="text-embedding-ada-002")
 #database = Chroma(persist_directory="./database", embedding_function=embeddings)
@@ -86,26 +86,46 @@ def index(request):
 def chat(request):
     if request.method == "POST":
         query = request.POST.get('question')
-
+        # 맥락 저장을 위한 conversation_id
+        conversation_id = request.POST.get('conversation_id', None)
+        
+        # 새로운 대화가 시작될 때 기존 대화 삭제
+        if not conversation_id:
+            conversation_id = str(uuid.uuid4())
+            ChatMessage.objects.all().delete()  # 기존 모든 대화 삭제
+            
+        # 최근 memory개의 대화를 기억함
+        memory = 4
+        previous_messages = ChatMessage.objects.filter(conversation_id=conversation_id).order_by('timestamp')[:memory]
+        context = "\n".join([f"User: {msg.user_message}\nBot: {msg.bot_response}" for msg in previous_messages])
+        
+        full_query = f"{context}\nUser: {query}"
+        
+        database = getQAdb()
+        
         chat = ChatOpenAI(model="gpt-3.5-turbo")
         k = 3
         retriever = database.as_retriever(search_kwargs={"k": k})
         qa = RetrievalQA.from_llm(llm=chat, retriever=retriever, return_source_documents=True)
 
-        result = qa(query)
-
-        chat_message = ChatMessage.objects.create(user_message=query, bot_response=result["result"])
+        result = qa(full_query)
+        
+        chat_message = ChatMessage.objects.create(conversation_id=conversation_id, user_message=query, bot_response=result["result"])
         ChatHistory.objects.create(question=query, answer=result["result"])
+        
         return JsonResponse({
             'result': result["result"],
-            'timestamp': chat_message.timestamp.strftime('%Y-%m-%d %H:%M:%S')
+            'timestamp': chat_message.timestamp.strftime('%Y-%m-%d %H:%M:%S'),
+            'conversation_id': conversation_id
         })
     else:
         return JsonResponse({'result': 'Invalid request'}, status=400)
+    
 
 def chat_history(request):
     messages = ChatMessage.objects.all().order_by('-timestamp')
     return render(request, 'selfgpt/chat_history.html', {'messages': messages})
+
 
 @csrf_exempt
 def clear_history(request):

@@ -34,9 +34,8 @@
                 <div class="card-header text-center bg-primary text-white position-relative p-5" style="height: 200px;">
                     <h2>에이블스쿨 FAQ 챗봇</h2>
                     <a href="{% url 'selfchatgpt:chat_history' %}" class="btn custom-button" target="_blank" id="chat-history-button">채팅 이력 확인하기</a>
-                    
                 </div>
-                <div class="card-body chat-box " id="chat-box">
+                <div class="card-body chat-box" id="chat-box">
                     <!-- 초기 메시지 -->
                     <div class="chat-message bot-message text-dark bg-warning rounded-pill p-4 mb-3 w-50">
                         <strong>안녕하세요! 에이블스쿨에 관해 궁금한 것이 있으면 언제든지 물어보세요!</strong>
@@ -47,6 +46,7 @@
                         {% csrf_token %}
                         <div class="input-group" style="width: 100%;">
                             <textarea id="question" name="question" class="form-control" placeholder="메시지를 입력하세요..."></textarea>
+                            <input type="hidden" id="conversation_id" name="conversation_id">
                             <div class="input-group-append">
                                 <button type="submit" class="btn btn-primary p-4">Send</button>
                             </div>
@@ -89,7 +89,8 @@
                             "X-CSRFToken": document.querySelector('[name=csrfmiddlewaretoken]').value
                         },
                         body: new URLSearchParams({
-                            'question': message
+                            'question': message,
+                            'conversation_id': document.getElementById('conversation_id').value || crypto.randomUUID()
                         })
                     })
                     .then(response => response.json())
@@ -99,6 +100,7 @@
                         botMessage.innerHTML = `<div class="bg-warning font-weight-bold text-dark p-3 mb-3 rounded-pill float-left">${data.result}<div class="text-right small text-muted">${data.timestamp}</div></div>`;
                         chatBox.appendChild(botMessage);
                         chatBox.scrollTop = chatBox.scrollHeight;
+                        document.getElementById('conversation_id').value = data.conversation_id;
                     });
                 }
             });
