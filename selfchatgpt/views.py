@@ -80,19 +80,6 @@ def chat(request):
         chat = ChatOpenAI(model="gpt-3.5-turbo")
         k = 3
         retriever = database.as_retriever(search_kwargs={"k": k})
-<<<<<<< HEAD
-        qa = RetrievalQA.from_llm(llm=chat, retriever=retriever, return_source_documents=True)
-
-        result = qa(full_query)
-        
-        chat_message = ChatMessage.objects.create(conversation_id=conversation_id, user_message=query, bot_response=result["result"])
-        ChatHistory.objects.create(user=user, question=query, answer=result["result"])
-        
-        return JsonResponse({
-            'result': result["result"],
-            'timestamp': chat_message.timestamp.strftime('%Y-%m-%d %H:%M:%S'),
-            'conversation_id': conversation_id
-=======
         qa = ConversationalRetrievalChain.from_llm(llm=chat, retriever=retriever, memory=memory,
                                            return_source_documents=False,  output_key="answer")
         result = qa(query)
@@ -102,11 +89,10 @@ def chat(request):
         request.session['chatlog'] = chatlog
         
         chat_message = ChatMessage.objects.create(user_message=query, bot_response=result["answer"])
-        ChatHistory.objects.create(question=query, answer=result["answer"])
+        ChatHistory.objects.create(user=user, question=query, answer=result["answer"])
         return JsonResponse({
             'result': result["answer"],
             'timestamp': chat_message.timestamp.strftime('%Y-%m-%d %H:%M:%S')
->>>>>>> session_test
         })
     else:
         return JsonResponse({'result': 'Invalid request'}, status=400)
