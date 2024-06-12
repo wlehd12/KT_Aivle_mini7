@@ -128,6 +128,13 @@ STATICFILES_DIRS = [ BASE_DIR / 'static', ]
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
+<<<<<<< HEAD
 
 LOGIN_REDIRECT_URL = '/selfchatgpt/'
 LOGOUT_REDIRECT_URL = '/selfchatgpt/'
+=======
+LOGIN_URL = "/accounts/login/"
+
+LOGIN_REDIRECT_URL = ''
+LOGOUT_REDIRECT_URL = ''
+>>>>>>> cd00645cf1dabb43e28eaf00fadd663c4dd783c8
