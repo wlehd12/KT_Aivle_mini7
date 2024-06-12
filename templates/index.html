@@ -20,7 +20,6 @@
                             <li><a href="{% url 'login' %}?next={{request.path}}">로그인</a></li>
                         {% else %}
                             <li><a href="#">{{user}}님!</a></li>
-                            <li><a href="{% url 'profile' %}">내정보</a> </li> 
                             <li><a href="{% url 'logout' %}?next={{request.path}}">로그아웃</a></li>
                         {% endif %}
                      </ul>
