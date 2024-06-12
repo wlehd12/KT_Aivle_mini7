@@ -11,11 +11,24 @@
         <h1 style="padding:10px;">Aivle School FAQ 모음</h1>
     </div>
 </head>
+
 <body style="background: #598384; margin:15px">
+
     <form action='' method='get' style="text-align: center;">
         {% csrf_token %}
-        검색어:<input type="text" name="keyword" value="{{q|default:''}}" >
-                <input type='submit' value='검색'>
+        <div style="text-align: center;">
+            <form action="/searchdb" method="get" style="display:inline;">
+                <button type="submit" name="catword" value=''>전체</button>
+            </form>
+            {% for cat in catlist %}
+                <button type="submit" name="catword" value="{{ cat }}">{{ cat }}</button>
+            {% endfor %}
+        </div>
+        <div style="text-align: center;">
+        <br>
+        검색어: <input type="text" name="keyword" value="{{ q|default:'' }}">
+        <input type="submit" value="검색">
+        </div>
     </form>
 
 

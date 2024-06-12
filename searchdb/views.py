@@ -7,14 +7,14 @@ def index(request):
 # Create your views here.
 def list(request):
     QAlist = ChatgptHelpaivleqa.objects.all()
-    catlist = {qas.pclass for qas in QAlist}
+    catlist = ['모집/선발','교육/수강','국민내일배움카드','채용연계','교육생 지원사항','기타']
     
     search_key = request.GET.get("keyword")
     if search_key:
         QAlist = QAlist.filter(qa__icontains=search_key)
     
-    type_query = request.GET.get("type")
-    if type_query:
-        QAlist = QAlist.filter(pclass=type_query)
+    cat_key = request.GET.get("catword")
+    if cat_key:
+        QAlist = QAlist.filter(pclass=cat_key)
         
-    return render(request, 'search/list.html', {'QAlist':QAlist, 'q':search_key, 'catlist':catlist})
+    return render(request, 'search/list.html', {'QAlist':QAlist, 'q':search_key, 'catlist':catlist, 'cat':cat_key})
