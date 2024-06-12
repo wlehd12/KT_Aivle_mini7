@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!doctype html>
 {% load static %}
 <html>
@@ -81,3 +82,88 @@
         </script>
     </body>
 </html>
+=======
+<!doctype html>
+{% load static %}
+<html>
+    <head>
+        <title>에이블스쿨 FAQ 채팅 이력</title>
+        <meta charset="utf-8">
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+        <style>
+            .custom-button {
+                background-color: white;
+                color: #007bff;
+                border: 1px solid #007bff;
+                font-weight: bold;
+                margin-top: 15px;
+            }
+            .btn-danger{
+                background-color: red;
+                color: white;
+                border: 1px solid #007bff;
+                font-weight: bold;
+                margin-top: 15px;
+            }
+        </style>
+    </head>
+    <body class="bg-light-yellow">
+        <div class="container mt-5">
+            <div class="card shadow">
+                <div class="card-header text-center bg-primary text-white position-relative p-5" style="height: 200px;">   
+                    <h2>Chat History</h2>
+                    <a href="{% url 'selfchatgpt:index' %}" class="btn custom-button">채팅으로 돌아가기</a>
+                    <button id="clear-history" class="btn btn-danger">이력 지우기</button>
+                </div>
+                <div class="card-body chat-box" id="chat-box">
+                    {% if messages %}
+                        {% for message in messages %}
+                        <div class="w-100 d-inline-block">
+                            <div class="chat-message user-message bg-primary font-weight-bold text-white p-3 mb-3 rounded-pill float-right">
+                                {{ message.user_message }} <br>
+                                <span class="text-right small text-light">{{ message.timestamp }}</span>
+                            </div>
+                        </div>
+                        <div class="w-100 d-inline-block">
+                            <div class="chat-message bot-message bg-warning font-weight-bold text-dark p-3 mb-3 rounded-pill float-left">
+                                {{ message.bot_response }} <br>
+                                <span class="text-right small text-muted">{{ message.timestamp }}</span>
+                            </div>
+                        </div>
+                        
+                        {% endfor %}
+                    {% else %}
+                        <div class="text-center text-muted">
+                            <strong>채팅 이력이 없습니다</strong>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <!-- CSRF 토큰을 위한 폼 -->
+        <form id="csrf-form">
+            {% csrf_token %}
+        </form>
+        <script>
+            document.getElementById('clear-history').addEventListener('click', function() {
+                if (confirm('정말로 모든 이력을 삭제하시겠습니까?')) {
+                    var csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+                    fetch("{% url 'selfchatgpt:clear_history' %}", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/x-www-form-urlencoded",
+                            "X-CSRFToken": csrfToken
+                        }
+                    }).then(response => {
+                        if (response.ok) {
+                            window.location.reload();
+                        } else {
+                            alert('이력을 지우는 데 실패했습니다.');
+                        }
+                    });
+                }
+            });
+        </script>
+    </body>
+</html>
+>>>>>>> cd00645cf1dabb43e28eaf00fadd663c4dd783c8
