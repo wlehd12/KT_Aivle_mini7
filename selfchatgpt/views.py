@@ -11,7 +11,6 @@ from langchain_community.chat_models import ChatOpenAI
 from langchain_community.embeddings import OpenAIEmbeddings
 from langchain_community.vectorstores import Chroma
 from langchain.chains import RetrievalQA
-<<<<<<< HEAD
 from langchain.schema import Document
 
 import uuid
@@ -19,13 +18,6 @@ import uuid
 
 #embeddings = OpenAIEmbeddings(model="text-embedding-ada-002")
 #database = Chroma(persist_directory="./database", embedding_function=embeddings)
-=======
-from langchain.chains import RetrievalQA, ConversationalRetrievalChain
-from langchain.memory import ConversationBufferMemory
-
-from .function import *
-import json
->>>>>>> session_test
 
 # DB remke
 def getQAdb():
@@ -79,7 +71,6 @@ def chat(request):
         chat = ChatOpenAI(model="gpt-3.5-turbo")
         k = 3
         retriever = database.as_retriever(search_kwargs={"k": k})
-<<<<<<< HEAD
         qa = RetrievalQA.from_llm(llm=chat, retriever=retriever, return_source_documents=True)
 
         result = qa(full_query)
@@ -91,21 +82,6 @@ def chat(request):
             'result': result["result"],
             'timestamp': chat_message.timestamp.strftime('%Y-%m-%d %H:%M:%S'),
             'conversation_id': conversation_id
-=======
-        qa = ConversationalRetrievalChain.from_llm(llm=chat, retriever=retriever, memory=memory,
-                                           return_source_documents=False,  output_key="answer")
-        result = qa(query)
-
-        msg = [result['question'], result['answer']]
-        chatlog.append(msg)
-        request.session['chatlog'] = chatlog
-        
-        chat_message = ChatMessage.objects.create(user_message=query, bot_response=result["answer"])
-        ChatHistory.objects.create(question=query, answer=result["answer"])
-        return JsonResponse({
-            'result': result["answer"],
-            'timestamp': chat_message.timestamp.strftime('%Y-%m-%d %H:%M:%S')
->>>>>>> session_test
         })
     else:
         return JsonResponse({'result': 'Invalid request'}, status=400)

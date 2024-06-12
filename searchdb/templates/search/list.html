@@ -3,13 +3,17 @@
 
     <form action='' method='get'>
         {% csrf_token %}
-        검색어:<input type="text" name="keyword" value="{{q|default:''}}" >
+        질문 검색 : <input type="text" name="keyword" value="{{q|default:''}}" >
                 <input type='submit' value='검색'>
-    </form>
-
+        </form>
+    <p>분류</p>
+    {% for cat in catlist %}
+        + {{cat}} 
+    {% endfor %}
 
     {% for qas in QAlist %}
-        {{qas.qa}} <br><br>
+        {{qas.pclass}} <br>
+        {{qas.qa |striptags | linebreaks }} <br>
     {% endfor %}
 {% endblock content %}
 
