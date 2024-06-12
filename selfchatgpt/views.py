@@ -51,30 +51,16 @@ from django.views.decorators.csrf import csrf_exempt
 # ChatMessage 모델 가져오는 코드 추가
 from .models import ChatMessage
 from .models import ChatHistory
-from .models import ChatgptHelpaivleqa
 
 from langchain.chat_models import ChatOpenAI
 from langchain.embeddings import OpenAIEmbeddings
 from langchain.vectorstores import Chroma
 from langchain.chains import RetrievalQA
-from langchain.schema import Document
 
 
-#embeddings = OpenAIEmbeddings(model="text-embedding-ada-002")
-#database = Chroma(persist_directory="./database", embedding_function=embeddings)
 
-# csv + vectorDB
-def getQAdb():
-    QAdf=ChatgptHelpaivleqa.objects.all()
-    embeddings = OpenAIEmbeddings(model="text-embedding-ada-002")
-    database = Chroma(persist_directory="./database", embedding_function = embeddings )
-    # 각 행의 데이터를 Document 객체로 변환 
-    documents = [Document(page_content=QA.qa)  for QA in QAdf]
-
-    # 데이터프레임에서 문서 추가
-    database.add_documents(documents)
-    return database
-
+embeddings = OpenAIEmbeddings(model="text-embedding-ada-002")
+database = Chroma(persist_directory="./database", embedding_function=embeddings)
 
 def index(request):
     return render(request, 'selfgpt/index.html')
@@ -82,12 +68,8 @@ def index(request):
 @csrf_exempt
 def chat(request):
     if request.method == "POST":
-        
         query = request.POST.get('question')
-        
-        # DB 변경
-        database=getQAdb()
-        
+
         chat = ChatOpenAI(model="gpt-3.5-turbo")
         k = 3
         retriever = database.as_retriever(search_kwargs={"k": k})
@@ -115,5 +97,4 @@ def clear_history(request):
         return JsonResponse({'status': 'success'})
     else:
         return JsonResponse({'status': 'fail'}, status=400)
-
 
