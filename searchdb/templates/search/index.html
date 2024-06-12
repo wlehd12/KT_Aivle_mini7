@@ -1,0 +1,15 @@
+{% load static %}
+{% block extrahead %}
+<link rel="stylesheet" href="{% static 'gpt/style.css' %}">
+{% endblock %}
+<form action="chat" method="post" entype="application/x-www-form-urlencoded">
+    {% csrf_token %}
+    <div id="ask_gpt">
+        <label> 임시 </label>
+        <textarea id="question" name="question"></textarea>
+    </div>
+    <div class="button-container">
+        <button id="text_button" type="submit">질문</button>
+    </div>
+</form>
+

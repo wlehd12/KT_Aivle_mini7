@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'chatgpt',
     'selfchatgpt',
     'accounts',
+    'searchdb',
 ]
 
 MIDDLEWARE = [
