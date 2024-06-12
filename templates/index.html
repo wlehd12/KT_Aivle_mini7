@@ -20,7 +20,12 @@
                             <li><a href="{% url 'login' %}?next={{request.path}}">로그인</a></li>
                         {% else %}
                             <li><a href="#">{{user}}님!</a></li>
-                            <li><a href="{% url 'logout' %}?next={{request.path}}">로그아웃</a></li>
+                            <li><form method="post" action="{% url 'logout' %}?next={{request.path}}" style="display:inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="logout-button" style="background:none; border:none; color:inherit; padding:0; cursor:pointer;">
+                                    로그아웃
+                                </button>
+                            </form></li>
                         {% endif %}
                      </ul>
                     </div>
