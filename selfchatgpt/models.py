@@ -147,14 +147,29 @@ class DjangoSession(models.Model):
         db_table = 'django_session'
 
 
-# ChatMessage 정의 추가
+# # ChatMessage 정의 추가
+# class ChatMessage(models.Model):
+#     user_message = models.TextField()
+#     bot_response = models.TextField()
+#     timestamp = models.DateTimeField(auto_now_add=True)
+
+#     def __str__(self):
+#         return self.user_message
+
+
 class ChatMessage(models.Model):
     user_message = models.TextField()
     bot_response = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)
+    conversation_id = models.CharField(max_length=36, default='default_value')
+    id = models.AutoField(primary_key=True)
 
+    class Meta:
+        db_table = 'chat_message'
+    
     def __str__(self):
         return self.user_message
+    
     
 class ChatHistory(models.Model):
     question = models.TextField()
