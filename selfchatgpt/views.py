@@ -18,11 +18,6 @@ import uuid
 
 #embeddings = OpenAIEmbeddings(model="text-embedding-ada-002")
 #database = Chroma(persist_directory="./database", embedding_function=embeddings)
-from langchain.chains import RetrievalQA, ConversationalRetrievalChain
-from langchain.memory import ConversationBufferMemory
-
-from .function import *
-import json
 
 # DB remke
 def getQAdb():
@@ -39,22 +34,12 @@ def getQAdb():
 database=getQAdb()
 
 def index(request):
-    if 'chatlog' in request.session:
-        del request.session['chatlog']
     return render(request, 'selfgpt/index.html')
 
 
 @csrf_exempt
 def chat(request):
     if request.method == "POST":
-        if 'chatlog' not in request.session:
-            request.session['chatlog'] = []
-            memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
-            chatlog = []
-        else:
-            chatlog = request.session['chatlog']
-            memory = memory_save(chatlog)
-
         query = request.POST.get('question')
         # 맥락 저장을 위한 conversation_id
         conversation_id = request.POST.get('conversation_id', None)
@@ -76,19 +61,17 @@ def chat(request):
         chat = ChatOpenAI(model="gpt-3.5-turbo")
         k = 3
         retriever = database.as_retriever(search_kwargs={"k": k})
-        qa = ConversationalRetrievalChain.from_llm(llm=chat, retriever=retriever, memory=memory,
-                                           return_source_documents=False,  output_key="answer")
-        result = qa(query)
+        qa = RetrievalQA.from_llm(llm=chat, retriever=retriever, return_source_documents=True)
 
-        msg = [result['question'], result['answer']]
-        chatlog.append(msg)
-        request.session['chatlog'] = chatlog
+        result = qa(full_query)
         
-        chat_message = ChatMessage.objects.create(user_message=query, bot_response=result["answer"])
-        ChatHistory.objects.create(question=query, answer=result["answer"])
+        chat_message = ChatMessage.objects.create(conversation_id=conversation_id, user_message=query, bot_response=result["result"])
+        ChatHistory.objects.create(question=query, answer=result["result"])
+        
         return JsonResponse({
-            'result': result["answer"],
-            'timestamp': chat_message.timestamp.strftime('%Y-%m-%d %H:%M:%S')
+            'result': result["result"],
+            'timestamp': chat_message.timestamp.strftime('%Y-%m-%d %H:%M:%S'),
+            'conversation_id': conversation_id
         })
     else:
         return JsonResponse({'result': 'Invalid request'}, status=400)
