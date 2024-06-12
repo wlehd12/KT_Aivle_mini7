@@ -6,17 +6,20 @@
     <link rel="stylesheet" href="/searchdb/static/css/style.css"> 
     <div>
         <a href="/" class="btn btn-3d blue font-weight-bold p-2 m-2 float-right w-10">메인으로 돌아가기</a>
-    </div>        
-    <h1 style="text-align:center; padding:10px;">Aivle School FAQ 모음</h1>
+    </div>
+    <div class="nine">     
+        <h1 style="padding:10px;">Aivle School FAQ 모음</h1>
+    </div>
 </head>
-<body>
+<body style="background: #598384; margin:15px">
     <form action='' method='get' style="text-align: center;">
         {% csrf_token %}
-        <div style="background-color:white;">
-            검색어:<input type="text" name="keyword" value="{{q|default:''}}" >
+        <div style="padding:10px; font-weight:bold">
+            검색어 : <input type="text" name="keyword" value="{{q|default:''}}" >
             <input type='submit' value='검색'>
         </div>
     </form>
+    <br>
     {% for qas in QAlist %}
         {{qas.qa}} <br><br>
     {% endfor %}
