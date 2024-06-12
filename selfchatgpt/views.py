@@ -86,6 +86,7 @@ def index(request):
 def chat(request):
     if request.method == "POST":
         query = request.POST.get('question')
+        user = request.user
         # 맥락 저장을 위한 conversation_id
         conversation_id = request.POST.get('conversation_id', None)
         
@@ -111,7 +112,7 @@ def chat(request):
         result = qa(full_query)
         
         chat_message = ChatMessage.objects.create(conversation_id=conversation_id, user_message=query, bot_response=result["result"])
-        ChatHistory.objects.create(question=query, answer=result["result"])
+        ChatHistory.objects.create(user=user, question=query, answer=result["result"])
         
         return JsonResponse({
             'result': result["result"],
