@@ -1,15 +1,17 @@
 {% block content %}
     <h1>Aivle School FAQ 모음</h1>
+    <p> +<a href= "/searchdb/"> 전체</a>
+        {% for cat in catlist %}
+            +<a href="/searchdb/?type={{cat}}">{{cat}}</a>
+        {% endfor %}
+        </p>
 
     <form action='' method='get'>
         {% csrf_token %}
         질문 검색 : <input type="text" name="keyword" value="{{q|default:''}}" >
                 <input type='submit' value='검색'>
         </form>
-    <p>분류</p>
-    {% for cat in catlist %}
-        + {{cat}} 
-    {% endfor %}
+    
 
     {% for qas in QAlist %}
         {{qas.pclass}} <br>
