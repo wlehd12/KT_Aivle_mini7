@@ -1,6 +1,6 @@
 
 #ask_gpt label, #answer_gpt label {
-    background-color: #1a2e35; 
+    background-color: #000; 
     color: #fff; 
     font-weight: bold; 
     padding: 10px; 
@@ -71,7 +71,7 @@ form {
 }
 
 #text_button {
-    background-color: #1cbbb4;
+    background-color: #20B2AA;
     color: #fff;
     border: none;
     padding: 7px 15px;
