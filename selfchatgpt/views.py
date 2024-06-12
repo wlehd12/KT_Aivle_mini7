@@ -53,6 +53,7 @@ def chat(request):
         
         chat_message = ChatMessage.objects.create(user_message=query, bot_response=result["answer"])
         ChatHistory.objects.create(question=query, answer=result["answer"])
+        ChatHistory.objects.create(question=query, answer=result["answer"])
         return JsonResponse({
             'result': result["answer"],
             'timestamp': chat_message.timestamp.strftime('%Y-%m-%d %H:%M:%S')

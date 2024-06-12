@@ -3,51 +3,34 @@
     <head>
         <title>에이블스쿨 FAQ 챗봇</title>
         <meta charset="utf-8">
-        {% block extrahead %}
+        <link rel="stylesheet" href="/static/chat.css">
+        
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-        <style>
-            .custom-button {
-                background-color: white;
-                color: #007bff;
-                border: 1px solid #007bff;
-                font-weight: bold;
-                margin-top: 15px;
-            }
-            .main-page-button {
-                position: absolute;
-                right: 10px;
-                font-size:12px;
-                transform: translateY(-110%);
-                background-color: #007bff;
-                color: white;
-                font-weight: bold;
-                padding: 8px;
-            }
-        </style>
-        {% endblock %}
+        
     </head>
-    <body class="bg-light-yellow">
-        <div class="container mt-5">
-            <a href="/" class="btn main-page-button">메인으로 돌아가기</a>
+    <body style="background: #598384;">
+        <div class="container" id="chat-body">
             <div class="card shadow">
-                <div class="card-header text-center bg-primary text-white position-relative p-5" style="height: 200px;">
+                <div class="card-header" id="card-header">
                     <h2>에이블스쿨 FAQ 챗봇</h2>
-                    <a href="{% url 'selfchatgpt:chat_history' %}" class="btn custom-button" target="_blank" id="chat-history-button">채팅 이력 확인하기</a>
+                    <div>
+                        <a href="/" class="btn btn-3d blue text-white font-weight-bold p-2 float-right d-inline-block w-10">메인으로 돌아가기</a>
+                        <a href="/selfchatgpt/history/" class="btn btn-3d yellow font-weight-bold p-2 float-right d-inline-block w-10" target="_blank" id="chat-history-button">채팅 이력 확인하기</a>
+                    </div>    
                 </div>
                 <div class="card-body chat-box" id="chat-box">
                     <!-- 초기 메시지 -->
-                    <div class="chat-message bot-message text-dark bg-warning rounded-pill p-4 mb-3 w-50">
+                    <div class="chat-message bot-message" id="chat-start">
                         <strong>안녕하세요! 에이블스쿨에 관해 궁금한 것이 있으면 언제든지 물어보세요!</strong>
                     </div>
                 </div>
-                <div class="card-footer" style="background: #f0e68c;">
+                <div class="card-footer" style="background: #f5efc2;">
                     <form id="chat-form" class="d-flex justify-content-center">
-                        {% csrf_token %}
+                        <input type="hidden" name="csrfmiddlewaretoken" value="DdbMSNuflHE0dg1rSyZxnXs78Lx2pDO8sOz5kvvHRICHjkCu17sWWOL7mlXklvmm">
                         <div class="input-group" style="width: 100%;">
                             <textarea id="question" name="question" class="form-control" placeholder="메시지를 입력하세요..."></textarea>
-                            <input type="hidden" id="conversation_id" name="conversation_id">
                             <div class="input-group-append">
-                                <button type="submit" class="btn btn-primary p-4">Send</button>
+                                <button type="submit" class="btn btn-3d blue p-4">Send</button>
                             </div>
                         </div>
                     </form>
@@ -76,12 +59,12 @@
                     var userMessage = document.createElement('div');
                     var timestamp = new Date().toLocaleString();
                     userMessage.className = 'chat-message user-message w-100 d-inline-block';
-                    userMessage.innerHTML = `<div class="bg-primary font-weight-bold text-white p-3 mb-3 rounded-pill float-right">${message}<div class="text-right small text-light">${timestamp}</div></div>`;
+                    userMessage.innerHTML = `<div class="user-chat">${message}<div class="text-right small text-light">${timestamp}</div></div>`;
                     chatBox.appendChild(userMessage);
                     input.value = '';
 
                     // Send message to the server
-                    fetch("{% url 'selfchatgpt:chat' %}", {
+                    fetch("/selfchatgpt/chat/", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/x-www-form-urlencoded",
@@ -96,10 +79,9 @@
                     .then(data => {
                         var botMessage = document.createElement('div');
                         botMessage.className = 'chat-message bot-message w-100 d-inline-block';
-                        botMessage.innerHTML = `<div class="bg-warning font-weight-bold text-dark p-3 mb-3 rounded-pill float-left">${data.result}<div class="text-right small text-muted">${data.timestamp}</div></div>`;
+                        botMessage.innerHTML = `<div class="bot-chat">${data.result}<div class="text-right small text-muted">${data.timestamp}</div></div>`;
                         chatBox.appendChild(botMessage);
                         chatBox.scrollTop = chatBox.scrollHeight;
-                        document.getElementById('conversation_id').value = data.conversation_id;
                     });
                 }
             });

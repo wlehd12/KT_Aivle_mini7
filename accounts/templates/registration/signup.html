@@ -5,8 +5,9 @@
     <title>{% block title %}회원가입{% endblock %}</title>
     <meta charset="utf-8">    
     <link rel="stylesheet" href="{% static 'accounts/signup.css' %}">
+    <link rel="stylesheet" href="{% static 'accounts/btn.css' %}">
 </head>
-<body>
+<body style="background: #598384;">
     {% block content %}
     {% comment %} <h1> 회원 가입 </h1> {% endcomment %}
     <form action="" method="post">
@@ -14,7 +15,7 @@
         <table>
             {{ form.as_table }}
         </table>
-        <input type="submit" value="회원가입" />
+        <input type="submit" class="btn-3d blue" style="width: 100%; float:right" value="회원가입" />
     </form>
     {% endblock %}
 </body>
