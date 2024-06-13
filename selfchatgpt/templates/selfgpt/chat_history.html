@@ -18,10 +18,23 @@
                         <a id="clear-history" class="btn btn-danger btn-3d red text-white font-weight-bold p-2 float-right d-inline-block w-10">이력 지우기</a>
                     </div>
                 </div>
-                <div id="chat-box">
-                    <div class="text-center text-muted" style="padding:30px;">
-                        <strong>채팅 이력이 없습니다</strong>
-                    </div>
+                <div class="card-body chat-box"id="chat-box">
+                    {% if messages %}
+                        {% for message in messages %}
+                        <div class="chat-message user-message bg-primary text-white rounded p-3 mb-3">
+                            {{ message.user_message }} <br>
+                            <span class="text-right small text-light">{{ message.timestamp }}</span>
+                        </div>
+                        <div class="chat-message bot-message bg-light text-dark rounded p-3 mb-3">
+                            {{ message.bot_response }} <br>
+                            <span class="text-right small text-muted">{{ message.timestamp }}</span>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="text-center text-muted" style="padding:30px;">
+                            <strong>채팅 이력이 없습니다</strong>
+                        </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
