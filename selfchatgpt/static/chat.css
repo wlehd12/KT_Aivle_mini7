@@ -13,6 +13,27 @@
     padding: 8px;
 }
 
+.form-control{
+    resize: none;
+    text-align: left;
+}
+
+:lang(ko) {
+    font-family: -apple-system, BlinkMacSystemFont, 'Nanum Gothic', sans-serif;
+    font-weight: bold;
+    line-height: 1.5;
+}
+
+#question {
+    resize: none; 
+    padding: 10px; 
+    border-radius: 10px;
+}
+
+#question::placeholder {
+    color: #999; 
+}
+
 .btn-danger{
     background-color: red;
     color: white;
@@ -23,37 +44,47 @@
 #card-header{
     color:white;
     text-align: center;
-    background-color: #007bff;
+    background-color: #1a2e35;
     position: relative;
     padding-top: 30px;
     height: 200px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+
 }
 
 #chat-start{
     font:black;
     border-radius: 30px 30px 30px 5px;
-    background-color:#f0e68c;
+    background-color:#84EDE8;
     padding: 15px;
     margin: 10px;
     width:50%;
 }
+.bot-message{
+    text-align: left;
+}
+
 .user-chat{
     color:white;
     font: bold;
     border-radius: 30px 30px 5px 30px;
-    background-color:#007bff;
+    background-color:#F0D264;
     padding:15px;
     margin:10px;
     float:right;
+    text-align: left;
 }
+
 .bot-chat{
     color:black;
     font:bold;
     border-radius: 30px 30px 30px 5px;
-    background-color:#f0e68c;
+    background-color:#84EDE8;
     padding:15px;
     margin:10px;
     float:left;
+    text-align: left;
 }
 
 /* 3D Button */
@@ -96,7 +127,7 @@
 }
   
 .btn-3d.blue {
-    background-color: #6DA2D9;
+    background-color: #84EDE8;
     box-shadow: 0 0 0 1px #6698cb inset,
           0 0 0 2px rgba(255,255,255,0.15) inset,
           0 8px 0 0 rgba(110, 164, 219, .7),
@@ -104,7 +135,7 @@
           0 8px 8px 1px rgba(0,0,0,0.5);
 }
 .btn-3d.blue:active {
-    box-shadow: 0 0 0 1px #6191C2 inset,
+    box-shadow: 0 0 0 1px #19aaa4 inset,
           0 0 0 2px rgba(255,255,255,0.15) inset,
           0 0 0 1px rgba(0,0,0,0.4);
 }

@@ -6,15 +6,20 @@
         <link rel="stylesheet" href="/static/chat.css">
         
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
+
+        <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
         
-    </head>
-    <body style="background: #598384;margin : 50px 150px 50px 150px;">
+
+    <body style="background: #fff; margin : 50px 150px 50px 150px;" lang = "ko">
         <div class="container" id="chat-body">
             <div class="card shadow">
                 <div class="card-header" id="card-header">
                     <h2>에이블스쿨 FAQ 챗봇</h2>
                     <div>
-                        <a href="/" class="btn btn-3d blue text-white font-weight-bold p-2 float-right d-inline-block w-10">메인으로 돌아가기</a>
+                        <a href="/" class="btn btn-3d blue font-weight-bold p-2 float-right d-inline-block w-10">메인으로 돌아가기</a>
                         <a href="/selfchatgpt/history/" class="btn btn-3d yellow font-weight-bold p-2 float-right d-inline-block w-10" target="_blank" id="chat-history-button">채팅 이력 확인하기</a>
                     </div>    
                 </div>
@@ -24,13 +29,13 @@
                         <strong>안녕하세요! 에이블스쿨에 관해 궁금한 것이 있으면 언제든지 물어보세요!</strong>
                     </div>
                 </div>
-                <div class="card-footer" style="background: #f5efc2;">
+                <div class="card-footer" style="background: #1a2e35;">
                     <form id="chat-form" class="d-flex justify-content-center">
                         <input type="hidden" name="csrfmiddlewaretoken" value="DdbMSNuflHE0dg1rSyZxnXs78Lx2pDO8sOz5kvvHRICHjkCu17sWWOL7mlXklvmm">
                         <div class="input-group" style="width: 100%;">
                             <textarea id="question" name="question" class="form-control" placeholder="메시지를 입력하세요..."></textarea>
                             <div class="input-group-append">
-                                <button type="submit" class="btn btn-3d blue p-4">Send</button>
+                                <button type="submit" class="btn btn-3d blue p-4 font-weight-bold">Send</button>
                             </div>
                         </div>
                     </form>
