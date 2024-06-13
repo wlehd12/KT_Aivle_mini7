@@ -1,43 +1,56 @@
 {% block content %}
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
+    <title>Aivle School FAQ</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/searchdb/static/css/style.css"> 
-    <div>
-        <a href="/" class="btn btn-3d blue font-weight-bold p-2 m-2 float-right w-10">메인으로 돌아가기</a>
-    </div>
-    <div class="nine">     
-        <h1 style="padding:10px;">Aivle School FAQ 모음</h1>
-    </div>
+    <link rel="stylesheet" href="/static/css/style.css"> <!-- Make sure the path to your CSS file is correct -->
 </head>
 
 <body style="background: #598384; margin:15px">
 
-    <form action='' method='get' style="text-align: center;">
+<div class="container">
+    <div class="row">
+        <div class="col-12 text-right">
+            <a href="/" class="btn btn-primary font-weight-bold p-2 m-2">메인으로 돌아가기</a>
+        </div>
+        <div class="col-12 text-center">
+            <h1 class="text-white my-4">Aivle School FAQ 모음</h1>
+        </div>
+    </div>
+
+    <form action="" method="get" class="text-center mb-4">
         {% csrf_token %}
-        <div style="text-align: center;">
+        <div class="btn-group" role="group" aria-label="Category buttons">
             <form action="/searchdb" method="get" style="display:inline;">
-                <button type="submit" name="catword" value=''>전체</button>
+                <button type="submit" name="catword" value="" class="btn btn-secondary">전체</button>
             </form>
             {% for cat in catlist %}
-                <button type="submit" name="catword" value="{{ cat }}">{{ cat }}</button>
+                <button type="submit" name="catword" value="{{ cat }}" class="btn btn-secondary">{{ cat }}</button>
             {% endfor %}
         </div>
-        <div style="text-align: center;">
-        <br>
-        검색어: <input type="text" name="keyword" value="{{ q|default:'' }}">
-        <input type="submit" value="검색">
+        <div class="form-group mt-3">
+            <label for="keyword" class="text-white">검색어:</label>
+            <input type="text" id="keyword" name="keyword" value="{{ q|default:'' }}" class="form-control d-inline-block w-auto">
+            <input type="submit" value="검색" class="btn btn-primary">
         </div>
     </form>
 
+    
+    <div class="container">
+        {% for qas in QAlist %}
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{ qas.pclass }}</h5>
+                <p class="card-text">{{ qas.qa|striptags|linebreaks }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
 
-    {% for qas in QAlist %}
-        {{qas.pclass}} <br>
-        {{qas.qa |striptags | linebreaks }} <br>
-    {% endfor %}
+
 </body>
 </html>
 {% endblock content %}
-
-
