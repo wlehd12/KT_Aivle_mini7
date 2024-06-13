@@ -1,0 +1,55 @@
+/* 전체 배경 색 변경 */
+body {
+    background-color: blanchedalmond;
+}
+
+/* 헤더 스타일 변경 */
+#header {
+    background-color: #8f7575;
+    color: rgb(92, 229, 138);
+    padding: 10px 0;
+}
+
+#header h1 {
+    color: #ff9800;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* 모듈 제목 스타일 변경 */
+.module h2, .module caption {
+    background-color: #ff9800;
+    color: white;
+    padding: 5px;
+    border-radius: 4px;
+}
+
+/* 사이드바 스타일 변경 */
+#sidebar {
+    background-color: #404040;
+    color: white;
+}
+
+#sidebar a {
+    color: #ff9800;
+}
+
+#sidebar a:hover {
+    color: white;
+    background-color: #ff9800;
+}
+
+/* 테이블 헤더 스타일 변경 */
+table#result_list th {
+    background-color: #ff9800;
+    color: white;
+}
+
+/* 테이블 행 스타일 변경 */
+table#result_list tr:nth-child(odd) {
+    background-color: #f5f5f5;
+}
+
+table#result_list tr:nth-child(even) {
+    background-color: #e0e0e0;
+}

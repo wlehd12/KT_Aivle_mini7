@@ -124,7 +124,11 @@ USE_TZ = True
 # 각 앱 아래의 static 폴더를 정적파일 경로로 지정
 STATIC_URL = '/static/'
 # root 아래의 static 폴더를 정적파일에 추가
-STATICFILES_DIRS = [ BASE_DIR / 'static', ]
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'chatgpt', 'static'),
+]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
