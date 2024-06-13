@@ -1,0 +1,43 @@
+ body {
+    background-color: black;
+    color: white;
+    text-align: center; /* 텍스트 중앙 정렬 */
+}
+
+#file-module-0 {
+    margin: 20px auto; /* 위, 아래 간격 추가 */
+    width: 300px; /* 조금 더 넓게 설정 */
+    padding: 10px; /* 내부 여백 추가 */
+    border: 2px solid white; /* 테두리 추가 */
+}
+
+#request {
+    display: block; /* 레이블을 블록 요소로 설정 */
+    margin-bottom: 10px; /* 아래쪽 간격 추가 */
+}
+
+#question {
+    width: 100%; /* 텍스트 상자를 부모 요소의 너비에 맞춤 */
+    height: 100px; /* 텍스트 상자의 높이 설정 */
+    padding: 10px; /* 내부 여백 추가 */
+    margin-bottom: 20px; /* 아래쪽 간격 추가 */
+    border-radius: 5px; /* 모서리 둥글게 설정 */
+}
+
+#div_button {
+    text-align: center; /* 버튼 중앙 정렬 */
+}
+
+#text-button {
+    padding: 10px 20px; /* 버튼 내부 여백 설정 */
+    font-size: 1em; /* 버튼 글꼴 크기 설정 */
+    background-color: #4CAF50; /* 버튼 배경색 설정 */
+    color: white; /* 버튼 글자색 설정 */
+    border: none; /* 버튼 테두리 제거 */
+    border-radius: 5px; /* 버튼 모서리 둥글게 설정 */
+    cursor: pointer; /* 마우스 커서를 포인터로 변경 */
+}
+
+#text-button:hover {
+    background-color: #45a049; /* 버튼 호버 시 배경색 변경 */
+}
