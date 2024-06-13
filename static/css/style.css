@@ -4,6 +4,21 @@ body {
   background-color: #ffffff;
 }
 
+form.logout-form {
+  margin: 0;
+  border: none; 
+  display: block;
+  padding: 0.5rem 1rem;
+  color: #fff;
+}
+
+p.user-name{
+  margin: 0;
+  border: none; 
+  display: block;
+  padding: 0.5rem 1rem;
+}
+
 .layout_padding {
   padding-top: 90px;
   padding-bottom: 90px;

@@ -173,10 +173,9 @@ class ChatMessage(models.Model):
     
     
 class ChatHistory(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
     question = models.TextField()
     answer = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"Q: {self.question} | A: {self.answer} | User: {self.user}"
+        return f"Q: {self.question} | A: {self.answer}"

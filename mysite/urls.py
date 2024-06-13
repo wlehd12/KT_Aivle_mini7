@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.shortcuts import render
+from . import views
 
 def index(request):
     return render(request,'index.html')
@@ -28,6 +29,8 @@ urlpatterns = [
     path('selfchatgpt/',include('selfchatgpt.urls')),
     path('accounts/', include('accounts.urls')),
     path('searchdb/', include('searchdb.urls')),
+    path('about/', views.about, name ="about"),
+    path('index/', views.home_index, name="home_index")
 ]
 
 from django.conf import settings

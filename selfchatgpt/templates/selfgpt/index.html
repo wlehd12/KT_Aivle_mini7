@@ -1,5 +1,4 @@
-<!doctype html>
-
+{% load static %}
 <html>
     <head>
         <title>에이블스쿨 FAQ 챗봇</title>
@@ -72,7 +71,7 @@
                             "X-CSRFToken": document.querySelector('[name=csrfmiddlewaretoken]').value
                         },
                         body: new URLSearchParams({
-                            'question': message
+                            'question': message,
                         })
                     })
                     .then(response => response.json())
