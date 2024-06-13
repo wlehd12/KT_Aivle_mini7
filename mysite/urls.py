@@ -30,7 +30,8 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('searchdb/', include('searchdb.urls')),
     path('about/', views.about, name ="about"),
-    path('index/', views.home_index, name="home_index")
+    path('index/', views.home_index, name="home_index"),
+    path('searchdb/upload_csv', include('searchdb.urls')),
 ]
 
 from django.conf import settings

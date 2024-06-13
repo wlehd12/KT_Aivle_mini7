@@ -4,6 +4,36 @@ from .models import ChatgptHelpaivleqa
 def index(request):
     return render(request, 'search/index.html')
 
+
+import csv
+from django.shortcuts import render
+from django.contrib import messages
+from .forms import CSVUploadForm
+
+def upload_csv(request):
+    if request.method == 'POST':
+        form = CSVUploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            csv_file = request.FILES['csv_file']
+            if not csv_file.name.endswith('.csv'):
+                messages.error(request, 'This is not a CSV file')
+                return render(request, 'upload_csv.html', {'form': form})
+
+            # Read the CSV file and save data to the database
+            decoded_file = csv_file.read().decode('utf-8').splitlines()
+            reader = csv.reader(decoded_file)
+            #for row in reader:
+                # Assuming CSV columns are: name, age, email
+                # MyModel.objects.create(name=row[0], age=row[1], email=row[2])
+                
+            messages.success(request, 'File uploaded successfully')
+            return render(request, 'search/form.html', {'form': form})
+    else:
+        form = CSVUploadForm()
+    
+    return render(request, 'search/form.html', {'form': form})
+
+
 # Create your views here.
 def list(request):
     QAlist = ChatgptHelpaivleqa.objects.all()
