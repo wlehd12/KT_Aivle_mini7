@@ -20,12 +20,10 @@
         </div>
     </div>
 
-    <form action="" method="get" class="text-center mb-4">
+    <form action="/searchdb/" method="get" class="text-center mb-4">
         {% csrf_token %}
         <div class="btn-group" role="group" aria-label="Category buttons">
-            <form action="/searchdb" method="get" style="display:inline;">
-                <button type="submit" name="catword" value="" class="btn btn-secondary">전체</button>
-            </form>
+            <button type="submit" name="catword" value="" class="btn btn-secondary">전체</button>
             {% for cat in catlist %}
                 <button type="submit" name="catword" value="{{ cat }}" class="btn btn-secondary">{{ cat }}</button>
             {% endfor %}

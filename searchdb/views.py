@@ -10,6 +10,7 @@ def list(request):
     catlist = ['모집/선발','교육/수강','국민내일배움카드','채용연계','교육생 지원사항','기타']
     
     search_key = request.GET.get("keyword")
+    print(search_key)
     if search_key:
         QAlist = QAlist.filter(qa__icontains=search_key)
     
