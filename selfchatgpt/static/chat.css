@@ -1,5 +1,6 @@
 #chat-body{
-    margin: 50px;
+    display: inline;
+    text-align: center;
 }
 #main-page-button{
     position: absolute;

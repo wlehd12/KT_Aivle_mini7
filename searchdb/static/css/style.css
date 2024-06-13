@@ -1,3 +1,28 @@
+
+/* 3D Button */
+.btn-3d {
+    position: relative;
+    display: inline-block;
+    font-size: 22px;
+    padding: 20px 60px;
+    color: white;
+    margin: 20px 10px 10px;
+    border-radius: 6px;
+    text-align: center;
+    transition: top .01s linear;
+    text-shadow: 0 1px 0 rgba(0,0,0,0.15);
+}
+.btn-3d.red:hover    {background-color: #e74c3c;}
+.btn-3d.blue:hover   {background-color: #699DD1;}
+.btn-3d.green:hover  {background-color: #80C49D;}
+.btn-3d.purple:hover {background-color: #D19ECB;}
+.btn-3d.yellow:hover {background-color: #F0D264;}
+.btn-3d.cyan:hover   {background-color: #82D1E3;}
+
+.btn-3d:active {
+    top: 9px;
+}
+  
 /* 3D button colors */
 .btn-3d.red {
     background-color: #e74c3c;
@@ -81,31 +106,5 @@
     box-shadow: 0 0 0 1px #F0D264 inset,
           0 0 0 2px rgba(255,255,255,0.15) inset,
           0 0 0 1px rgba(0,0,0,0.4);
-}
-  
-
-.nine h1 {
-    text-align:center; font-size:50px; text-transform:uppercase; color:#222; letter-spacing:1px;
-    font-family:"Playfair Display", serif; font-weight:400;
-}
-.nine h1 span {
-    margin-top: 5px;
-      font-size:15px; color:#444; word-spacing:1px; font-weight:normal; letter-spacing:2px;
-      text-transform: uppercase; font-family:"Raleway", sans-serif; font-weight:500;
-  
-      display: grid;
-      grid-template-columns: 1fr max-content 1fr;
-      grid-template-rows: 27px 0;
-      grid-gap: 20px;
-      align-items: center;
-}
-  
-.nine h1 span:after,.nine h1 span:before {
-      content: " ";
-      display: block;
-      border-bottom: 1px solid #ccc;
-      border-top: 1px solid #ccc;
-      height: 5px;
-    background-color:#f8f8f8;
 }
   
