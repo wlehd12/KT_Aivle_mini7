@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .models import ChatgptHelpaivleqa
+from .function import *
 
 def index(request):
     return render(request, 'search/index.html')
@@ -21,7 +22,9 @@ def upload_csv(request):
 
             # Read the CSV file and save data to the database
             decoded_file = csv_file.read().decode('utf-8').splitlines()
-            reader = csv.reader(decoded_file)
+            print(decoded_file)
+            add_db(decoded_file)
+            searchdb()
             #for row in reader:
                 # Assuming CSV columns are: name, age, email
                 # MyModel.objects.create(name=row[0], age=row[1], email=row[2])
