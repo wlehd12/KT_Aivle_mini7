@@ -24,7 +24,8 @@ def add_db(csv_file):
             target.append(tmp)
 
     doc = [Document(page_content= QA, metadata = {'구분': '기타'}) for QA in target]
-    database.add_documents(doc)
+    if len(doc) >= 1:
+        database.add_documents(doc)
     return 
 
 def searchdb():

@@ -30,7 +30,8 @@ def upload_csv(request):
                 # MyModel.objects.create(name=row[0], age=row[1], email=row[2])
                 
             messages.success(request, 'File uploaded successfully')
-            return render(request, 'search/form.html', {'form': form})
+            return render(request, 'search/list.html', {'form': form})
+            # return render(request, '/')
     else:
         form = CSVUploadForm()
     
