@@ -44,7 +44,8 @@
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
-  
+            
+            <!-- 메뉴창 누르고 난 후 -->
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav  ">
                 <li class="nav-item">
@@ -54,11 +55,12 @@
                   <a class="nav-link" href="{% url 'about' %}"> Members</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="/selfchatgpt/">Ask </a>
+                  <a class="nav-link" href="/searchdb/">Ask </a>
                 </li>
               </ul>
+
+              <!-- 회원가입, 로그인 창 -->
               <div class="user_option">
-              
                 {% if not user.is_authenticated %}     
                   <a class="nav-link" href="{% url 'signup' %}"> <span>Signup</span> </a>        
                   <a class="nav-link" href="{% url 'login' %}?next={{request.path}}"> <span>Login</span> </a>
@@ -74,33 +76,26 @@
          
                   </form>
                 {% endif %}
-                
-                <form class="form-inline my-2 my-lg-0 ml-0 ml-lg-4 mb-3 mb-lg-0">
-                  <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit"></button>
-                </form>
               </div>
+
             </div>
+
+            <!-- 메뉴창 닫기 -->
             <div>
-              <div class="custom_menu-btn ">
+              <div class="custom_menu-btn ">  
                 <button>
-                  <span class=" s-1">
-  
-                  </span>
-                  <span class="s-2">
-  
-                  </span>
-                  <span class="s-3">
-  
-                  </span>
+                  <span class=" s-1"></span>
+                  <span class="s-2"></span>
+                  <span class="s-3"></span>
                 </button>
               </div>
             </div> 
+
           </nav>
         </div>
     </header>
     <!-- end header section -->
 
-    <!-- slider section -->
     <!-- slider section -->
     <section class="slider_section ">
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
@@ -137,7 +132,7 @@
                         <a lang="ko" href="/selfchatgpt/" class="btn-2">
                           대화형 챗봇
                         </a>
-                        <a lang="ko" href="/searchdb/" class="btn-2">
+                        <a href="/searchdb/" class="btn-2">
                           Aivle School FAQ
                         </a>
                       </div>
@@ -145,7 +140,7 @@
                   </div>
                   <div class="offset-md-1 col-md-4 img-container">
                     <div class="img-box">
-                      <img src="../static/images/A7_icon.png" alt="" style="width: 300px; height: auto;">
+                      <img src="../static/images/A7_icon.png" alt="" style="width: 300px; height: auto; padding-left: 30px;">
                     </div>
                   </div>
                 </div>
@@ -179,15 +174,15 @@
                         <a lang="ko" href="/selfchatgpt/" class="btn-2">
                           대화형 챗봇
                         </a>
-                        <a lang="ko" href="" class="btn-2">
-                          대화형 챗봇 - 관리DB
+                        <a href="/searchdb/" class="btn-2">
+                          Aivle School FAQ
                         </a>
                       </div>
                     </div>
                   </div>
                   <div class="offset-md-1 col-md-4 img-container">
                     <div class="img-box">
-                      <img src="../static/images/Aivle_icon.png" alt="" style="width: 270px; height: auto; padding-left: 50px;">
+                      <img src="../static/images/Aivle_icon.png" alt="" style="width: 270px; height: auto; padding-left: 40px;">
                     </div>
                   </div>
                 </div>
