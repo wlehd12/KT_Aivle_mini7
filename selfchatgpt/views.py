@@ -13,12 +13,24 @@ from langchain.vectorstores import Chroma
 from langchain.chains import RetrievalQA
 from langchain.chains import RetrievalQA, ConversationalRetrievalChain
 from langchain.memory import ConversationBufferMemory
+from langchain.schema import Document
+from .models import ChatgptHelpaivleqa
 
 from .function import *
 import json
 
-embeddings = OpenAIEmbeddings(model="text-embedding-ada-002")
-database = Chroma(persist_directory="./database", embedding_function=embeddings)
+def getQAdb():
+    QAdf=ChatgptHelpaivleqa.objects.all()
+    embeddings = OpenAIEmbeddings(model="text-embedding-ada-002")
+    database = Chroma(persist_directory="./database", embedding_function = embeddings )
+    # 각 행의 데이터를 Document 객체로 변환 
+    documents = [Document(page_content=QA.qa)  for QA in QAdf]
+
+    # 데이터프레임에서 문서 추가
+    database.add_documents(documents)
+    return database
+
+database=getQAdb()
 
 def index(request):
     if 'chatlog' in request.session:
